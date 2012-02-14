@@ -1,0 +1,13 @@
+This is a simple program that tries to imitate Microsoft's GPO system on Linux.
+It reads GPOs on a ldap server, and applies them from a directory, which is mounted however you want.
+
+There are two modes : computer, and user. Both are pretty self-explanatory, and will be triggered by init or PAM.
+
+Sorry, there's no "make install" rule.
+To install it, you'll need to copy the generated slgm binary into /usr/local/bin. Also copy his friend, slgm_pam, which is the script that pam_exec will use.
+
+In the "misc" directory, you'll also find the GroupPolicyObject schema for your ldap server, and a sample initscript for archlinux. Be careful to launch boot time slgm AFTER you've mounted your network share !
+
+SLGM outputs to syslog (and to stdout if you specify -v as the first argument), so you might want to write a syslog rule which redirects it's output into a separate file.
+
+Have fun !
