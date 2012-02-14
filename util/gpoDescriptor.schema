@@ -1,0 +1,26 @@
+#
+# Ldap GPO schema
+# Arnaud BARISAIN MONROSE - 2012
+#
+
+# Alias for OID
+objectidentifier GPOAttribute 2.25.21314639757237.1
+objectidentifier GPOObjectClass 2.25.21314639757237.2
+
+#
+# Attributes
+#
+
+attributetype ( GPOAttribute:1 NAME ( 'id' )
+        DESC 'GPO GUID'
+        EQUALITY caseIgnoreMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32} )
+
+attributetype ( GPOAttribute:2 NAME ( 'uri' )
+        DESC 'GPO URI'
+        EQUALITY caseIgnoreMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{255} )
+
+objectclass ( GPOObjectClass:1 NAME 'groupPolicyDescriptor' SUP top STRUCTURAL
+        DESC 'GPO Descriptor'
+        MUST ( id $ uri ) )
