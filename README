@@ -5,6 +5,11 @@ There are two modes : computer, and user. Both are pretty self-explanatory, and 
 
 Sorry, there's no "make install" rule.
 To install it, you'll need to copy the generated slgm binary into /usr/local/bin. Also copy his friend, slgm_pam, which is the script that pam_exec will use.
+Then add a pam_exec line in your pam chain. It should look like this :
+session		optional	pam_exec.so /usr/local/bin/slgm_pam
+
+WARNING : slgm_pam uses su to log in as the target user so it can run scripts that use ~ (it also removes the need to chmod everything you create). Because of this, slgm_pam will do an infinite loop if it is in the su chain.
+In order to fix this, just remove pam_exec from the su chain (be careful if you use debian, they use a shared chain system), or remove "su -c " surrounding slgm in slgm_pam.
 
 In the "misc" directory, you'll also find the GroupPolicyObject schema for your ldap server, and a sample initscript for archlinux. Be careful to launch boot time slgm AFTER you've mounted your network share !
 
